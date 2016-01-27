@@ -1,0 +1,32 @@
+#!/bin/bash
+
+restore() {
+  # Restore all files
+  [ -n "$HAS_CHANGES" ] && git stash pop --quiet
+}
+
+abort() {
+  restore
+  echo "An error occurred. Exiting..." >&2
+  exit 1
+}
+
+trap abort ERR
+
+set -e
+
+HAS_CHANGES=$(git status --short)
+
+# Stash all files including untracked and keeps indexed files
+[ -n "$HAS_CHANGES" ] && git stash save --include-untracked --keep-index
+
+# Removes lib-babel folder
+npm run clean -s
+
+# Build lib-babel
+npm run build -s
+
+# Add lib-babel to commit
+git add lib-babel
+
+restore

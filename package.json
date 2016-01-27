@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "main": "lib-babel/index.js",
+  "files": [
+    "lib-babel"
+  ],
+  "scripts": {
+    "clean": "rm -rf lib-babel",
+    "build": "./node_modules/.bin/babel lib -d lib-babel",
+    "precommit": "./bin/precommit"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.4.5",
+    "babel-preset-es2015": "^6.3.13",
+    "husky": "^0.10.2"
+  }
+}
