@@ -12,4 +12,4 @@ var func = function func() {
 
 console.log(_path2.default.join(__dirname));
 
-console.log('Hello world');
+console.log('Olle Bröms');
