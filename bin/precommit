@@ -6,6 +6,7 @@ restore() {
 }
 
 abort() {
+  echo "WAS HERE $HAS_CHANGES"
   restore
   echo "An error occurred. Exiting..." >&2
   exit 1
@@ -18,15 +19,15 @@ set -e
 HAS_CHANGES=$(git status --short)
 
 # Stash all files including untracked and keeps indexed files
-[ -n "$HAS_CHANGES" ] && git stash save --include-untracked --keep-index
+[ -n "$HAS_CHANGES" ] && echo "Stash" && git stash save --include-untracked --keep-index
 
 # Removes lib-babel folder
-npm run clean -s
+npm run clean -s && echo "Clean"
 
 # Build lib-babel
-npm run build -s
+npm run build -s && echo "Build"
 
 # Add lib-babel to commit
-git add lib-babel
+git add lib-babel && echo "Add"
 
 restore
